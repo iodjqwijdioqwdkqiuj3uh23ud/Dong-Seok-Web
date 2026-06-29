@@ -34,14 +34,11 @@ app.post('/api/register', (req, res) => {
 
 app.post('/api/login', (req, res) => {
     const { nickname, password } = req.body;
-
     const user = users.find(u => u.nickname === nickname && u.password === password);
-    
     if (!user) {
         return res.status(400).json({ message: "닉네임 또는 비밀번호가 틀렸습니다." });
     }
-
-    return res.status(200).json({ message: `${user.nickname}님, 환영합니다!` });
+    return res.status(200).json({ message: "로그인 성공!", nickname: user.nickname });
 });
 
 app.listen(3000, () => {
