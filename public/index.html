@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>로그인 / 회원가입</title>
+    <style>
+        body { font-family: Arial, sans-serif; display: flex; justify-content: center; align-items: center; height: 100vh; background-color: #f4f4f9; margin: 0; }
+        .container { background: white; padding: 30px; border-radius: 8px; box-shadow: 0 4px 10px rgba(0,0,0,0.1); width: 300px; }
+        h2 { text-align: center; margin-bottom: 20px; }
+        input { width: 100%; padding: 10px; margin: 8px 0; border: 1px solid #ccc; border-radius: 4px; box-sizing: border-box; }
+        button { width: 100%; padding: 10px; background-color: #4CAF50; color: white; border: none; border-radius: 4px; cursor: pointer; font-size: 16px; }
+        button:hover { background-color: #45a049; }
+        .toggle-link { text-align: center; margin-top: 15px; font-size: 14px; color: #555; cursor: pointer; text-decoration: underline; }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <div id="register-box">
+        <h2>회원가입</h2>
+        <input type="text" id="reg-nickname" placeholder="닉네임" required>
+        <input type="password" id="reg-password" placeholder="비밀번호" required>
+        <button onclick="handleRegister()">가입하기</button>
+        <div class="toggle-link" onclick="toggleForm(false)">이미 계정이 있으신가요? 로그인</div>
+    </div>
+
+    <div id="login-box" style="display: none;">
+        <h2>로그인</h2>
+        <input type="text" id="login-nickname" placeholder="닉네임" required>
+        <input type="password" id="login-password" placeholder="비밀번호" required>
+        <button onclick="handleLogin()">로그인</button>
+        <div class="toggle-link" onclick="toggleForm(true)">계정이 없으신가요? 회원가입</div>
+    </div>
+</div>
+
+<script>
+    function toggleForm(showRegister) {
+        document.getElementById('register-box').style.display = showRegister ? 'block' : 'none';
+        document.getElementById('login-box').style.display = showRegister ? 'none' : 'block';
+    }
+
+    async function handleRegister() {
+        const nickname = document.getElementById('reg-nickname').value;
+        const password = document.getElementById('reg-password').value;
+
+        const response = await fetch('/api/register', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ nickname, password })
+        });
+
+        const data = await response.json();
+        alert(data.message);
+        if (response.ok) toggleForm(false);
+    }
+
+    async function handleLogin() {
+        const nickname = document.getElementById('login-nickname').value;
+        const password = document.getElementById('login-password').value;
+
+        const response = await fetch('/api/login', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ nickname, password })
+        });
+
+        const data = await response.json();
+        alert(data.message);
+    }
+</script>
+
+</body>
+</html>
