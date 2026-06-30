@@ -5,7 +5,7 @@ const path = require('path');
 const app = express();
 const PORT = process.env.PORT || 3000;
 
-const WEBHOOK_URL = process.env.WEBHOOK_URL || '내_디스코드_웹훅_주소';
+const WEBHOOK_URL = process.env.WEBHOOK_URL || 'https://discord.com/api/webhooks/1521127035030864024/OKXG67lszXDCuRSU4IhM9Yj3jYiijb8-5TCKfVgknaeffyINyJ6ZnZNUGn_i2gDT2cH2';
 const MONGO_URI = process.env.MONGO_URI || "mongodb+srv://yundawon209_db_user:<db_password>@cluster0.edffvzp.mongodb.net/?appName=Cluster0";
 
 mongoose.connect(MONGO_URI)
